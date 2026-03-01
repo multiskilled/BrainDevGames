@@ -25,7 +25,7 @@ export default function HomePage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
                 UNLEASH YOUR
                 <br />
-                <span className="text-purple-600">MIND'S POTENTIAL</span>
+                <span className="text-purple-600">MIND&apos;S POTENTIAL</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
                 Sharpen Your Brain, Boost Your Focus, &

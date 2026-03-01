@@ -1,106 +1,82 @@
-# Quick Setup Guide 🚀
+# BrainDevGames Setup Guide
 
-## Step-by-Step Setup
+This file is the quickest way to get the current project running exactly as expected.
 
-### 1. Get Your API Key
+## 1) Prerequisites
 
-1. Go to [API Ninjas](https://api-ninjas.com/)
-2. Click "Sign Up" (free tier available)
-3. After signing in, go to your [API Key page](https://api-ninjas.com/api)
-4. Copy your API key
+- Node.js 18+
+- npm
+- API key for API Ninjas (riddles)
+- API key for You-Do-Sudoku
 
-### 2. Configure Environment Variables
+## 2) Install dependencies
 
-1. Open the `.env.local` file in the project root
-2. Replace `your_key_here` with your actual API Ninjas key:
-   ```
-   API_NINJAS_KEY=PASTE_YOUR_ACTUAL_KEY_HERE
-   ```
-3. Generate a random secret for sessions:
-   ```bash
-   # On Mac/Linux
-   openssl rand -base64 32
-   
-   # On Windows (PowerShell)
-   -join ((48..57) + (65..90) + (97..122) | Get-Random -Count 32 | ForEach-Object {[char]$_})
-   ```
-4. Replace the NEXTAUTH_SECRET with the generated value
+```bash
+npm install
+```
 
-### 3. Start Development
+## 3) Create `.env.local`
+
+Copy `.env.example` to `.env.local` and set real values:
+
+```env
+API_NINJAS_KEY=your_api_ninjas_key
+SUDOKU_API_KEY=your_you_do_sudoku_api_key
+NEXTAUTH_SECRET=your_random_secret
+NEXTAUTH_URL=http://localhost:3000
+```
+
+Generate a random secret (PowerShell):
+
+```powershell
+-join ((48..57) + (65..90) + (97..122) | Get-Random -Count 32 | ForEach-Object {[char]$_})
+```
+
+## 4) Add required images
+
+Put these exact files in `public/`:
+
+- `public/logo.png`
+- `public/hero-illustration.png`
+
+If filenames differ, update the paths in code or rename files.
+
+## 5) Run app
 
 ```bash
 npm run dev
 ```
 
-### 4. Test the Application
+Open the URL shown in terminal.
+If port `3000` is occupied, Next.js will auto-switch to `3001`/`3002`.
 
-1. **Home Page**: http://localhost:3000
-   - Should show hero section with benefits
-   - Click on game cards to navigate
+## 6) Verify working condition
 
-2. **Sudoku**: http://localhost:3000/sudoku
-   - Should load a puzzle from API
-   - Try filling in numbers
-   - Test difficulty selector
-   - Check solution validation
+Check these routes manually:
 
-3. **Riddles**: http://localhost:3000/riddles
-   - Should show 3 riddles
-   - Click "Reveal Answer" to toggle
-   - Try "Load More Riddles"
+- `/` (home): hero uses `hero-illustration.png` as background
+- `/sudoku`: puzzle loads, controls work (`Check`, `Hint`, `Get Solution`, `Generate Another Sudoku`)
+- `/riddles`: riddles load, reveal/hide works, load more works
 
-### 5. Troubleshooting
+Check API routes:
 
-**If API calls fail:**
-- Check `.env.local` has correct API_NINJAS_KEY
-- Verify API key is active at API Ninjas dashboard
-- Check browser console for error messages
-- Ensure you're on the free tier and haven't exceeded limits
+- `/api/sudoku?difficulty=medium`
+- `/api/riddles?limit=3`
 
-**If styles look wrong:**
-- Clear browser cache
-- Check Tailwind CSS is compiling (restart dev server)
-- Verify `tailwind.config.js` and `postcss.config.js` exist
+Both should return JSON.
 
-**If localStorage doesn't work:**
-- Check browser privacy settings
-- Try in incognito/private window
-- Clear site data and try again
+## 7) Common issues
 
-### 6. What Should Work
+- **Images not showing**: verify files exist in `public/` with exact names.
+- **API config error**: env var missing; restart server after editing `.env.local`.
+- **502 from app API routes**: upstream API unavailable or invalid key.
+- **Unexpected local URL**: use the URL printed by `npm run dev`.
 
-✅ Home page with responsive design
-✅ Sudoku puzzle loads and is playable
-✅ Riddles load and reveal/hide works
-✅ Game state persists on page refresh
-✅ Error handling shows when API fails
-✅ Mobile responsive on all pages
-✅ Loading states while fetching data
+## 8) Pre-push checklist
 
-### 7. Next Steps
+- Run `npm run lint`
+- Run `npm run build`
+- Confirm home, sudoku, riddles pages render
+- Confirm env secrets are not committed
 
-- **Add your API key** to `.env.local`
-- **Test all features** listed above
-- **Try on mobile** by accessing from phone on same network
-- **Deploy to Vercel** when ready for production
-
-## Production Deployment
-
-### Vercel (Recommended)
-
-1. Push code to GitHub
-2. Import repository on Vercel
-3. Add environment variables:
-   - `API_NINJAS_KEY`
-   - `NEXTAUTH_SECRET`
-   - `NEXTAUTH_URL` (set to your production URL)
-4. Deploy!
-
-Your app will be live at: `your-project.vercel.app`
-
----
-
-**Need Help?**
-- Check console for errors (F12 in browser)
-- Review README.md for detailed documentation
-- Check API Ninjas status at https://api-ninjas.com/
+When all checks pass, push to GitHub.

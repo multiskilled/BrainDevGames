@@ -13,7 +13,7 @@ export default function RiddlesError({ error, reset }) {
         </div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Failed to Load Riddles</h2>
         <p className="text-gray-600 mb-6">
-          We couldn't load the riddles. This might be due to API issues.
+          We couldn&apos;t load the riddles. This might be due to API issues.
         </p>
         <div className="space-y-3">
           <button
