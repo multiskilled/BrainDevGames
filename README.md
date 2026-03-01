@@ -59,15 +59,6 @@ NEXTAUTH_SECRET=your_random_secret
 NEXTAUTH_URL=http://localhost:3000
 ```
 
-## Required Public Assets
-
-Place these files in `public/`:
-
-- `public/logo.png` (used in header)
-- `public/hero-illustration.png` (used as home hero background)
-
-If these are missing, the app will show broken-image/fallback behavior where used.
-
 ## Local Development
 
 ```bash
